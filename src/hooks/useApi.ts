@@ -1,40 +1,40 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { ProtoRobot, Robot } from "../store/features/robots/model/Robot";
+import { ProtoItem, Item } from "../store/features/robots/model/Item";
 import {
-  addRobotActionCreator,
-  loadRobotsActionCreator,
-} from "../store/features/robots/robotsSlice";
+  addItemActionCreator,
+  loadItemsActionCreator,
+} from "../store/features/robots/ItemsSlice";
 import { useAppSelector } from "../store/hooks";
 
 const useApi = () => {
   const url = process.env.REACT_APP_API_URL as string;
 
-  const robots = useAppSelector(({ robots }) => robots);
+  const items = useAppSelector(({ items }) => items);
   const dispatch = useDispatch();
 
-  const getRobots = useCallback(async () => {
-    const response = await fetch(`${url}robots/`);
-    const { robots }: { robots: Robot[] } = await response.json();
+  const getItems = useCallback(async () => {
+    const response = await fetch(`${url}items/`);
+    const { items }: { items: Item[] } = await response.json();
 
-    dispatch<PayloadAction<Robot[]>>(loadRobotsActionCreator(robots));
+    dispatch<PayloadAction<Item[]>>(loadItemsActionCreator(items));
   }, [dispatch, url]);
 
-  const createRobot = async (newRobot: ProtoRobot) => {
-    const response = await fetch(`${url}robots/create`, {
+  const createItem = async (newItem: ProtoItem) => {
+    const response = await fetch(`${url}items/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newRobot),
+      body: JSON.stringify(newItem),
     });
-    const { robot }: { robot: Robot } = await response.json();
+    const { item }: { item: Item } = await response.json();
 
-    dispatch<PayloadAction<Robot>>(addRobotActionCreator(robot));
+    dispatch<PayloadAction<Item>>(addItemActionCreator(item));
   };
 
-  return { robots, getRobots, createRobot };
+  return { items, getItems, createItem };
 };
 
 export default useApi;

@@ -1,15 +1,15 @@
-import NewRobot from "./components/NewRobot/NewRobot";
-import RobotsList from "./components/RobotsList/RobotsList";
+import NewItem from "./components/NewItem/NewItem";
+import ItemsList from "./components/ItemsList/ItemsList";
 
 const App = (): JSX.Element => {
   return (
     <div className="container">
       <header className="main-header">
-        <h1>Robots App</h1>
+        <h1>Items App</h1>
       </header>
       <main className="main-content">
-        <NewRobot />
-        <RobotsList />
+        <NewItem />
+        <ItemsList />
       </main>
     </div>
   );
