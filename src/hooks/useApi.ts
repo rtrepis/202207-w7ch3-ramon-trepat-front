@@ -15,14 +15,14 @@ const useApi = () => {
   const dispatch = useDispatch();
 
   const getRobots = useCallback(async () => {
-    const response = await fetch(url);
+    const response = await fetch(`${url}robots/`);
     const { robots }: { robots: Robot[] } = await response.json();
 
     dispatch<PayloadAction<Robot[]>>(loadRobotsActionCreator(robots));
   }, [dispatch, url]);
 
   const createRobot = async (newRobot: ProtoRobot) => {
-    const response = await fetch(`${url}create`, {
+    const response = await fetch(`${url}robots/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
